@@ -37,7 +37,9 @@ export class DynamodbSocketService {
   static middleware(req, res, next) {
     console.log('tableName', req.body.tableName);
     console.log('event', req.body.event);
-    DynamodbSocketService.emitPayload(req.body.tableName, req.body.event);
+    req.body.Records.forEach(record => {
+      DynamodbSocketService.emitPayload(req.body.tableName, record);
+    });
     res.end();
   }
 
