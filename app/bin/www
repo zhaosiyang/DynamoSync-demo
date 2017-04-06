@@ -28,6 +28,13 @@ io.on('connection', function(socket){
   });
 });
 
+let i = 0;
+setInterval(function () {
+  console.log(`send: ${i}`);
+  io.emit('message', i);
+  i += 1;
+}, 1000);
+
 /**
  * Listen on provided port, on all network interfaces.
  */
