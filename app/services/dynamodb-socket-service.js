@@ -34,4 +34,9 @@ export class DynamodbSocketService {
     DynamodbSocketService.tableToEmitter[tableName].emit('message', payload);
   }
 
+  static middleware(req, res, next) {
+    DynamodbSocketService.emitPayload(req.body.tableName, req.body.event);
+    res.end();
+  }
+
 }
