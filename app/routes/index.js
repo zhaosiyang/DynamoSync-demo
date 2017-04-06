@@ -8,6 +8,7 @@ router.post('/', function(req, res, next) {
   console.log(req.body);
   const tableName = req.body.tableName;
   DynamodbSocketService.emitPayload(tableName, req.body.event);
+  res.end();
 });
 
 module.exports = router;
