@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('app:server');
 var http = require('http');
+import {DynamodbSocketService} from '../services/dynamodb-socket-service';
 
 /**
  * Get port from environment and store in Express.
@@ -20,20 +21,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-var io = require('socket.io')(server);
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-
-let i = 0;
-setInterval(function () {
-  console.log(`send: ${i}`);
-  io.emit('message', i);
-  i += 1;
-}, 1000);
+DynamodbSocketService.configIO(server);
 
 /**
  * Listen on provided port, on all network interfaces.
