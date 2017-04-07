@@ -89,7 +89,7 @@ export class DynamodbSocketService {
 
   static middleware(req, res, next) {
     req.body.Records.map(DynamodbSocketService._unmarshal).forEach(record => {
-      this.emitPayload(req.body.tableName, record);
+      DynamodbSocketService.emitPayload(req.body.tableName, record);
     });
     res.end();
   }
