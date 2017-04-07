@@ -24,7 +24,7 @@ export class DynamodbSocketService {
           console.log('fetch init data success', data);
           const items = data.Items.map(DynamodbSocketService._unmarshal);
           console.log('map init data to items: ', items);
-          socket.emit('init', items);
+          socket.emit('init-success', items);
         }
       });
     });

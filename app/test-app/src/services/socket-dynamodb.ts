@@ -54,7 +54,7 @@ export class SocketDynamodb {
           console.log('on message');
           observer.next(data);
         });
-        this.socket.on('init', data => {
+        this.socket.on('init-success', data => {
           console.log('on init', console.log(data));
           observer.next(data);
         });

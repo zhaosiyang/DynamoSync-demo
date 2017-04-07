@@ -14,7 +14,7 @@ export class AppComponent {
   ngOnInit() {
     const sd = new SocketDynamodb('MusicLibraryTest', this.serverDomain).toObservable();
     sd.subscribe(data => {
-      console.log(data);
+      console.log('data in sub', data);
       // this.messages.push(data.SongTitle);
     })
   }
