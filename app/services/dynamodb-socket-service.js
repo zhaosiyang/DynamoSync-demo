@@ -3,7 +3,7 @@ import {unmarshalItem} from 'dynamodb-marshaler';
 import {parseDynamodbArn} from './utils';
 import * as AWS from 'aws-sdk';
 
-export class DynamodbSocketService {
+export class DynamoSync {
 
   static configIO(server, tableArns) {
     this._printParsingArnResult(tableArns);
@@ -86,8 +86,8 @@ export class DynamodbSocketService {
   }
 
   static middleware(req, res, next) {
-    req.body.Records.map(DynamodbSocketService._unmarshal).forEach(record => {
-      DynamodbSocketService.emitPayload(req.body.tableName, record);
+    req.body.Records.map(DynamoSync._unmarshal).forEach(record => {
+      DynamoSync.emitPayload(req.body.tableName, record);
     });
     res.end();
   }

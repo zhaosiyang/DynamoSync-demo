@@ -33,7 +33,7 @@ export enum EventName
   REMOVE = <any>'REMOVE',
 }
 
-export class SocketDynamodb {
+export class NgDynamoSync {
 
   private socket: Socket;
   private url: string;
@@ -87,7 +87,7 @@ export class SocketDynamodb {
     });
 
     if (this.shouldSimplifyItem) {
-      observable = observable.map(SocketDynamodb.simplifyRecordsMapper);
+      observable = observable.map(NgDynamoSync.simplifyRecordsMapper);
     }
     return observable;
   }

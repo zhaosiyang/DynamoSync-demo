@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {SocketDynamodb, EventName} from '../services/socket-dynamodb';
+import {NgDynamoSync, EventName} from '../services/socket-dynamodb';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,8 @@ export class AppComponent {
   private serverDomain = 'http://54.213.212.103:3000';
   private title = 'hello';
 
-
   ngOnInit() {
-    new SocketDynamodb('MusicLibraryTest', this.serverDomain).bindToListModel(this.items);
+    new NgDynamoSync('MusicLibraryTest', this.serverDomain).bindToListModel(this.items);
   }
 
 }
