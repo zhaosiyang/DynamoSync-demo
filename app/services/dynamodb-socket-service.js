@@ -10,7 +10,8 @@ export class DynamodbSocketService {
     this._printParsingArnResult(tableArns);
     this.io = socketio(server);
     tableArns.forEach(arn => {
-      this._registerTable(arn);
+      console.log('testing this', this);
+      DynamodbSocketService._registerTable(arn);
     });
   }
 
