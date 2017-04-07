@@ -13,9 +13,8 @@ export class DynamodbSocketService {
     DynamodbSocketService.tableToEmitter[tableName] = this._createEmitter(tableName);
     DynamodbSocketService.tableToEmitter[tableName].on('connection', socket => {
       dynamodb.scan({TableName: tableName}, (err, data) => {
-        // TODO should have better error handling
         if (err) {
-          socket.emit('init', []);
+          socket.emit('error', err);
         }
         else {
           items = data.Items.filter(DynamodbSocketService._unmarshal);

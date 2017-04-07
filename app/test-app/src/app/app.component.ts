@@ -12,7 +12,7 @@ export class AppComponent {
   private title = 'hello';
 
   ngOnInit() {
-    const sd = new SocketDynamodb('MusicLibraryTest', this.serverDomain).onlyAllowEventNames(EventName.REMOVE).notSimplifyItem().toObservable();
+    const sd = new SocketDynamodb('MusicLibraryTest', this.serverDomain).toObservable();
     sd.subscribe(data => {
       console.log(data);
       // this.messages.push(data.SongTitle);

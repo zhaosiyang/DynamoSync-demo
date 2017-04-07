@@ -51,10 +51,15 @@ export class SocketDynamodb {
     if (!this.observable) {
       this.observable = Observable.create((observer: Observer<any>) => {
         this.socket.on('message', data => {
+          console.log('on message');
           observer.next(data);
         });
         this.socket.on('init', data => {
+          console.log('on init', console.log(data));
           observer.next(data);
+        });
+        this.socket.on('error', err => {
+          console.log('on error', console.log(err));
         });
       });
     }
