@@ -1,7 +1,8 @@
 const socketio = require('socket.io');
 import {unmarshalItem} from 'dynamodb-marshaler';
 import * as AWS from 'aws-sdk';
-const dynamodb = new AWS.DynamoDB();
+// TODO change region configurable
+const dynamodb = new AWS.DynamoDB({region: 'us-west-2'});
 
 export class DynamodbSocketService {
 
