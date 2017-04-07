@@ -34,13 +34,11 @@ export class DynamodbSocketService {
 
   static _registerTable(arn) {
     const {tableName, region} = parseDynamodbArn(arn);
-    console.log(`trying to register table ${tableName}`);
     this.tableToEmitter = this.tableToEmitter || {};
     this.tableToEmitter[tableName] = this._createEmitter(tableName);
     this.tableToEmitter[tableName].on('connection', socket => {
       this.getDynamodbObjectByRegion(region).scan({TableName: tableName}, (err, data) => {
         if (err) {
-          console.log('init-error', err);
           socket.emit('init-error', err);
         }
         else {
