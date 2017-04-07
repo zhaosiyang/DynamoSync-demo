@@ -7,16 +7,13 @@ const dynamodb = new AWS.DynamoDB({region: 'us-west-2'});
 export class DynamodbSocketService {
 
   static configIO(server) {
-    DynamodbSocketService.io = socketio(server);
+    this.io = socketio(server);
   }
 
   static _registerTableName(tableName) {
-    DynamodbSocketService.tableToEmitter = DynamodbSocketService.tableToEmitter || {};
-    if (DynamodbSocketService[tableName]) {
-      return;
-    }
-    DynamodbSocketService.tableToEmitter[tableName] = this._createEmitter(tableName);
-    DynamodbSocketService.tableToEmitter[tableName].on('connection', socket => {
+    this.tableToEmitter = this.tableToEmitter || {};
+    this.tableToEmitter[tableName] = this._createEmitter(tableName);
+    this.tableToEmitter[tableName].on('connection', socket => {
       console.log('some user connected');
       dynamodb.scan({TableName: tableName}, (err, data) => {
         if (err) {
@@ -41,14 +38,18 @@ export class DynamodbSocketService {
   }
 
   static _createEmitter(tableName) {
-    return DynamodbSocketService._IO().of('/' + tableName);
+    return this._IO().of('/' + tableName);
+  }
+
+  static _isTableRegistered(tableName) {
+    return this.tableToEmitter && !!this.tableToEmitter[tableName];
   }
 
   static emitPayload(tableName, payload) {
-    if (!DynamodbSocketService.tableToEmitter || !DynamodbSocketService[tableName]) {
+    if (this._isTableRegistered(tableName)) {
       this._registerTableName(tableName);
     }
-    DynamodbSocketService.tableToEmitter[tableName].emit('message', payload);
+    this.tableToEmitter[tableName].emit('message', payload);
   }
 
   static _unmarshal(item) {
@@ -67,7 +68,7 @@ export class DynamodbSocketService {
     console.log('middleware called');
     req.body.Records.map(DynamodbSocketService._unmarshal).forEach(record => {
       console.log('emit payload', record);
-      DynamodbSocketService.emitPayload(req.body.tableName, record);
+      this.emitPayload(req.body.tableName, record);
     });
     res.end();
   }
