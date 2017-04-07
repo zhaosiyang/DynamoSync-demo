@@ -7,15 +7,12 @@ import {SocketDynamodb, EventName} from '../services/socket-dynamodb';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private items: Array<string> = [];
+  private items = [6,7,8];
   private serverDomain = 'http://54.213.212.103:3000';
   private title = 'hello';
 
+
   ngOnInit() {
-    // const sd = new SocketDynamodb('MusicLibraryTest', this.serverDomain).toObservable();
-    // sd.subscribe(data => {
-    //   console.log('data in sub', data);
-    // })
     new SocketDynamodb('MusicLibraryTest', this.serverDomain).bindToListModel(this.items);
   }
 

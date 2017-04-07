@@ -2,8 +2,10 @@
   {{title}}
 </h1>
 
-<ul>
-  <li *ngFor="let message of messages">
-    {{message}}
+
+{{items.length}}
+<ol>
+  <li *ngFor="let item of items">
+    {{item.SongTitle}} | {{item.year}}
   </li>
-</ul>
+</ol>

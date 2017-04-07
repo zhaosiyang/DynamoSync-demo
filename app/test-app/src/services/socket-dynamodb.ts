@@ -1,5 +1,5 @@
 import Socket = SocketIOClient.Socket;
-import {Observable, Observer} from 'rxjs';
+import {Observable, Observer, Subscription} from 'rxjs';
 import * as io from 'socket.io-client';
 
 export interface InsertedItem {
@@ -40,8 +40,6 @@ export class SocketDynamodb {
   private observable: Observable<any>;
   private allowedEventNames: EventName[] = [EventName.INSERT, EventName.MODIFY, EventName.REMOVE, EventName.INIT];
   private shouldSimplifyItem = true;
-  private shouldAccumulateToList = true;
-
 
   constructor(tableName, serverDomain='') {
     this.url = `${serverDomain}/${tableName}`;
@@ -94,25 +92,45 @@ export class SocketDynamodb {
     return observable;
   }
 
-  bindToListModel(list: Array<any>): void {
-    this.toObservable().subscribe(record => {
-      console.log('eventName', record.eventName);
-      console.log(record);
+  bindToListModel(list: any[]): Subscription {
+    return this.toObservable().subscribe(record => {
       switch (record.eventName) {
         case EventName.INIT:
           this.replaceArray(list, record.Items);
+          break;
         case EventName.INSERT:
           list.push(record.NewImage);
-        // case EventName.REMOVE:
-        //   list.map
+          break;
+        case EventName.REMOVE:
+          let index = this.findIndexFromArrayByKeys(list, record.Keys);
+          list.splice(index, 1);
+          break;
+        case EventName.MODIFY:
+          index = this.findIndexFromArrayByKeys(list, record.Keys);
+          list[index] = record.NewImage;
       }
     })
   }
 
+  private findIndexFromArrayByKeys(list: any[], keyObject: any): number {
+    const keys = Object.keys(keyObject);
+    for (let i = 0; i < list.length; i++) {
+      let valid = true;
+      for (let key of keys) {
+        if (keyObject[key] !== list[i][key]) {
+          valid = false;
+          break;
+        }
+      }
+      if (valid) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
   private replaceArray(oldArray: Array<any>, newArray: Array<any>) {
-    console.log('oldArray', oldArray);
-    console.log('newArray', newArray);
-    for (let i = 0; i < oldArray.length; i++) {
+    while (oldArray.length > 0) {
       oldArray.pop();
     }
     for(let i = 0; i < newArray.length; i++) {
@@ -122,7 +140,6 @@ export class SocketDynamodb {
 
 
   private static simplifyRecordsMapper(record): InsertedItem | ModifiedItem | DeletedItem | InitItems {
-    console.log(record.eventName);
     switch (record.eventName) {
       case 'INSERT':
         return {eventName: record.eventName, Keys: record.dynamodb.Keys, NewImage: record.dynamodb.NewImage};
@@ -137,14 +154,3 @@ export class SocketDynamodb {
   }
 }
 
-
-//
-// const tableName = 'MusicLibraryTest';
-// const serverUrl = `${this.serverDomain}/${tableName}`;
-// console.log(serverUrl);
-// this.socket = io(serverUrl);
-//
-// this.socket.on('message', data => {
-//   console.log('got info');
-//   this.messages.push(data);
-// });
