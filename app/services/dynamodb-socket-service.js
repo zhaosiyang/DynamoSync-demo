@@ -21,7 +21,7 @@ export class DynamodbSocketService {
         }
         else {
           console.log('fetch init data success', data);
-          items = data.Items.map(DynamodbSocketService._unmarshal);
+          const items = data.Items.map(DynamodbSocketService._unmarshal);
           console.log('map init data to items: ', items);
           socket.emit('init', items);
         }
@@ -68,7 +68,9 @@ export class DynamodbSocketService {
   }
 
   static middleware(req, res, next) {
+    console.log('middleware called');
     req.body.Records.map(DynamodbSocketService._unmarshal).forEach(record => {
+      console.log('emit payload', record);
       DynamodbSocketService.emitPayload(req.body.tableName, record);
     });
     res.end();
