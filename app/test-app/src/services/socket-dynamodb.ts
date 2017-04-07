@@ -22,11 +22,11 @@ export class SocketDynamodb {
   }
 
   all(): Observable<any> {
-    return this.obs.map(unmarshalItem);
+    return this.obs;
   }
 
   InsertOnly(): Observable<any> {
-    return this.obs.filter(data => data.eventName === 'INSERT').map(data => data.NewImage).map(unmarshalItem);
+    return this.obs.filter(data => data.eventName === 'INSERT').map(data => data.NewImage);
   }
 
 }

@@ -35,9 +35,19 @@ export class DynamodbSocketService {
     DynamodbSocketService.tableToEmitter[tableName].emit('message', payload);
   }
 
+  static unmarshal(item) {
+    const fields = ['Keys', 'NewImage', 'OldImage'];
+    fields.forEach(field => {
+      if (item[field]) {
+        item[field] = unmarshalItem(item[field]);
+      }
+    });
+    return item;
+  }
+
   static middleware(req, res, next) {
     console.log(req.body.Records);
-    req.body.Records.map(unmarshalItem).forEach(record => {
+    req.body.Records.map(this.unmarshal).forEach(record => {
       DynamodbSocketService.emitPayload(req.body.tableName, record);
     });
     res.end();
