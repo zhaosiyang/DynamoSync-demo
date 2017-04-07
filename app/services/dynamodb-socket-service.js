@@ -22,7 +22,7 @@ export class DynamodbSocketService {
         }
         else {
           console.log('fetch init data success', data);
-          const items = data.Items.map(DynamodbSocketService._unmarshal);
+          const items = data.Items.map(unmarshalItem);
           console.log('map init data to items: ', items);
           socket.emit('init-success', items);
         }

@@ -40,6 +40,7 @@ export class SocketDynamodb {
   private observable: Observable<any>;
   private allowedEventNames: EventName[] = [EventName.INSERT, EventName.MODIFY, EventName.REMOVE, EventName.INIT];
   private shouldSimplifyItem = true;
+  private shouldAccumulateToList = true;
 
 
   constructor(tableName, serverDomain='') {
@@ -55,7 +56,7 @@ export class SocketDynamodb {
           observer.next(data);
         });
         this.socket.on('init-success', data => {
-          console.log('on init', console.log(data));
+          console.log('init-success');
           observer.next(data);
         });
         this.socket.on('init-error', err => {
@@ -64,7 +65,7 @@ export class SocketDynamodb {
         });
       });
     }
-    return this.observable;
+    return this.observable.filter(sub => !!sub);
   }
 
   notSimplifyItem() {
@@ -83,14 +84,45 @@ export class SocketDynamodb {
   }
 
   toObservable(): Observable<any> {
-    let observable = this.obs.filter(record => this.allowedEventNames.indexOf(record.eventName) >= 0);
+    let observable = this.obs.filter(record => {
+      return (record && record.eventName === undefined) || this.allowedEventNames.indexOf(record.eventName) >= 0;
+    });
+
     if (this.shouldSimplifyItem) {
-      observable = observable.map(SocketDynamodb.liteInfoMapper);
+      observable = observable.map(SocketDynamodb.simplifyRecordsMapper);
     }
     return observable;
   }
 
-  private static liteInfoMapper(record): InsertedItem | ModifiedItem | DeletedItem | InitItems {
+  bindToListModel(list: Array<any>): void {
+    this.toObservable().subscribe(record => {
+      console.log('eventName', record.eventName);
+      console.log(record);
+      switch (record.eventName) {
+        case EventName.INIT:
+          this.replaceArray(list, record.Items);
+        case EventName.INSERT:
+          list.push(record.NewImage);
+        // case EventName.REMOVE:
+        //   list.map
+      }
+    })
+  }
+
+  private replaceArray(oldArray: Array<any>, newArray: Array<any>) {
+    console.log('oldArray', oldArray);
+    console.log('newArray', newArray);
+    for (let i = 0; i < oldArray.length; i++) {
+      oldArray.pop();
+    }
+    for(let i = 0; i < newArray.length; i++) {
+      oldArray.push(newArray[i]);
+    }
+  }
+
+
+  private static simplifyRecordsMapper(record): InsertedItem | ModifiedItem | DeletedItem | InitItems {
+    console.log(record.eventName);
     switch (record.eventName) {
       case 'INSERT':
         return {eventName: record.eventName, Keys: record.dynamodb.Keys, NewImage: record.dynamodb.NewImage};
