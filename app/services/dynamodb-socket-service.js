@@ -51,10 +51,26 @@ export class DynamodbSocketService {
 
   static middleware(req, res, next) {
     console.log(req.body.Records);
-    req.body.Records.map(this.unmarshal).forEach(record => {
+    req.body.Records.map(DynamodbSocketService.unmarshal).forEach(record => {
       DynamodbSocketService.emitPayload(req.body.tableName, record);
     });
     res.end();
   }
 
 }
+
+// const item = { eventID: '63e13c4461de0e6b943b8d2d7c2c0e3b',
+//   eventName: 'INSERT',
+//   eventVersion: '1.1',
+//   eventSource: 'aws:dynamodb',
+//   awsRegion: 'us-west-2',
+//   dynamodb:
+//     { ApproximateCreationDateTime: 1491525000,
+//       Keys: {"Artist": {"S": "artist"}},
+//       NewImage: {"Artist": {"S": "artist"}, "SongTitle": {"N": "5"}},
+//       SequenceNumber: '22901100000000004359540401',
+//       SizeBytes: 34,
+//       StreamViewType: 'NEW_AND_OLD_IMAGES' },
+//   eventSourceARN: 'arn:aws:dynamodb:us-west-2:113420481216:table/MusicLibraryTest/stream/2017-04-04T00:41:35.492' };
+//
+// console.log(DynamodbSocketService.unmarshal(item));
