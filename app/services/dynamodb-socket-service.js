@@ -1,4 +1,5 @@
 const socketio = require('socket.io');
+import {unmarshalItem} from 'dynamodb-marshaler';
 
 export class DynamodbSocketService {
 
@@ -36,7 +37,7 @@ export class DynamodbSocketService {
 
   static middleware(req, res, next) {
     console.log(req.body.Records);
-    req.body.Records.forEach(record => {
+    req.body.Records.map(unmarshalItem).forEach(record => {
       DynamodbSocketService.emitPayload(req.body.tableName, record);
     });
     res.end();

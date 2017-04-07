@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as io from 'socket.io-client';
+import {SocketDynamodb} from '../services/socket-dynamodb';
 
 @Component({
   selector: 'app-root',
@@ -8,31 +8,16 @@ import * as io from 'socket.io-client';
 })
 export class AppComponent {
   private title = 'app works!';
-  private messages: Array<string> = ['test1', 'test2'];
+  private messages: Array<string> = [];
   private serverDomain = 'http://54.213.212.103:3000';
   private socket;
 
   ngOnInit() {
-    // const tableName = 'MusicLibraryTest';
-    // const serverUrl = `${this.serverDomain}/${tableName}`;
-    // console.log(serverUrl);
-    // this.socket = io(serverUrl);
-    //
-    // this.socket.on('message', data => {
-    //   console.log('got info');
-    //   this.messages.push(data);
-    // });
-
-
-    var socket = io('http://54.213.212.103:3000');
-    socket.on('connect', function(){
-      console.log('connected');
-    });
-    socket.on('message', function(data){
-      console.log('got message');
-    });
-    socket.on('disconnect', function(){});
-
+    const sd = new SocketDynamodb('MusicLibraryTest', this.serverDomain).all();
+    sd.subscribe(data => {
+      console.log(data);
+      this.messages.push(data.eventID);
+    })
   }
 
 }
