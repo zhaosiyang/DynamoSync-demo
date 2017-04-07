@@ -12,13 +12,17 @@ export class DynamodbSocketService {
     }
     DynamodbSocketService.tableToEmitter[tableName] = this._createEmitter(tableName);
     DynamodbSocketService.tableToEmitter[tableName].on('connection', socket => {
+      console.log('some user connected');
+      console.log('fetch init data');
       dynamodb.scan({TableName: tableName}, (err, data) => {
         if (err) {
-          console.log('err', err);
-          socket.emit('error', err);
+          console.log('init-error', err);
+          socket.emit('init-error', err);
         }
         else {
-          items = data.Items.filter(DynamodbSocketService._unmarshal);
+          console.log('fetch init data success', data);
+          items = data.Items.map(DynamodbSocketService._unmarshal);
+          console.log('map init data to items: ', items);
           socket.emit('init', items);
         }
       });

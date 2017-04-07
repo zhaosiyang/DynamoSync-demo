@@ -58,8 +58,9 @@ export class SocketDynamodb {
           console.log('on init', console.log(data));
           observer.next(data);
         });
-        this.socket.on('error', err => {
-          console.log('on error', console.log(err));
+        this.socket.on('init-error', err => {
+          console.log('on init-error', console.log(err));
+          observer.error(err);
         });
       });
     }
