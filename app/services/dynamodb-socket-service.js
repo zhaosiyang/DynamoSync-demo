@@ -1,5 +1,7 @@
 const socketio = require('socket.io');
 import {unmarshalItem} from 'dynamodb-marshaler';
+import * as AWS from 'aws-sdk';
+const dynamodb = new AWS.DynamoDB();
 
 export class DynamodbSocketService {
 
@@ -9,6 +11,18 @@ export class DynamodbSocketService {
       return;
     }
     DynamodbSocketService.tableToEmitter[tableName] = this._createEmitter(tableName);
+    DynamodbSocketService.tableToEmitter[tableName].on('connection', socket => {
+      dynamodb.scan({TableName: tableName}, (err, data) => {
+        // TODO should have better error handling
+        if (err) {
+          socket.emit('init', []);
+        }
+        else {
+          items = data.Items.filter(DynamodbSocketService._unmarshal);
+          socket.emit('init', items);
+        }
+      });
+    });
   }
 
   static configIO(server) {
@@ -35,7 +49,7 @@ export class DynamodbSocketService {
     DynamodbSocketService.tableToEmitter[tableName].emit('message', payload);
   }
 
-  static unmarshal(item) {
+  static _unmarshal(item) {
     if (item.dynamodb) {
       const fields = ['Keys', 'NewImage', 'OldImage'];
       fields.forEach(field => {
@@ -50,8 +64,7 @@ export class DynamodbSocketService {
   }
 
   static middleware(req, res, next) {
-    console.log(req.body.Records);
-    req.body.Records.map(DynamodbSocketService.unmarshal).forEach(record => {
+    req.body.Records.map(DynamodbSocketService._unmarshal).forEach(record => {
       DynamodbSocketService.emitPayload(req.body.tableName, record);
     });
     res.end();

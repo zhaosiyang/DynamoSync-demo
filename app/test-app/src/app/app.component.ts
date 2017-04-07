@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {SocketDynamodb} from '../services/socket-dynamodb';
+import {SocketDynamodb, EventName} from '../services/socket-dynamodb';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +7,15 @@ import {SocketDynamodb} from '../services/socket-dynamodb';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private title = 'app works!';
   private messages: Array<string> = [];
   private serverDomain = 'http://54.213.212.103:3000';
-  private socket;
+  private title = 'hello';
 
   ngOnInit() {
-    const sd = new SocketDynamodb('MusicLibraryTest', this.serverDomain).all();
+    const sd = new SocketDynamodb('MusicLibraryTest', this.serverDomain).onlyAllowEventNames(EventName.REMOVE).notSimplifyItem().toObservable();
     sd.subscribe(data => {
       console.log(data);
-      this.messages.push(data.eventID);
+      // this.messages.push(data.SongTitle);
     })
   }
 
