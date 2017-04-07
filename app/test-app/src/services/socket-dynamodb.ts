@@ -50,15 +50,12 @@ export class NgDynamoSync {
     if (!this.observable) {
       this.observable = Observable.create((observer: Observer<any>) => {
         this.socket.on('message', data => {
-          console.log('on message');
           observer.next(data);
         });
         this.socket.on('init-success', data => {
-          console.log('init-success');
           observer.next(data);
         });
         this.socket.on('init-error', err => {
-          console.log('on init-error', console.log(err));
           observer.error(err);
         });
       });
