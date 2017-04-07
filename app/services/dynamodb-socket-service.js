@@ -14,6 +14,7 @@ export class DynamodbSocketService {
     DynamodbSocketService.tableToEmitter[tableName].on('connection', socket => {
       dynamodb.scan({TableName: tableName}, (err, data) => {
         if (err) {
+          console.log('err', err);
           socket.emit('error', err);
         }
         else {
