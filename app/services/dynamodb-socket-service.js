@@ -2,7 +2,6 @@ const socketio = require('socket.io');
 import {unmarshalItem} from 'dynamodb-marshaler';
 import {parseDynamodbArn} from './utils';
 import * as AWS from 'aws-sdk';
-// TODO change region configurable
 
 export class DynamodbSocketService {
 
@@ -10,8 +9,7 @@ export class DynamodbSocketService {
     this._printParsingArnResult(tableArns);
     this.io = socketio(server);
     tableArns.forEach(arn => {
-      console.log('testing this', this);
-      DynamodbSocketService._registerTable(arn);
+      this._registerTable(arn);
     });
   }
 
@@ -36,6 +34,7 @@ export class DynamodbSocketService {
 
   static _registerTable(arn) {
     const {tableName, region} = parseDynamodbArn(arn);
+    console.log(`trying to register table ${tableName}`);
     this.tableToEmitter = this.tableToEmitter || {};
     this.tableToEmitter[tableName] = this._createEmitter(tableName);
     this.tableToEmitter[tableName].on('connection', socket => {
@@ -70,7 +69,7 @@ export class DynamodbSocketService {
   }
 
   static emitPayload(tableName, payload) {
-    if (this._isTableRegistered(tableName)) {
+    if (!this._isTableRegistered(tableName)) {
       throw Error(`Table: ${tableName} not registered`);
     }
     this.tableToEmitter[tableName].emit('message', payload);
