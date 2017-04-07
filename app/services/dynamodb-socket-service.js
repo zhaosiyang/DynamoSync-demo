@@ -36,12 +36,16 @@ export class DynamodbSocketService {
   }
 
   static unmarshal(item) {
-    const fields = ['Keys', 'NewImage', 'OldImage'];
-    fields.forEach(field => {
-      if (item[field]) {
-        item[field] = unmarshalItem(item[field]);
-      }
-    });
+    if (item.dynamodb) {
+      const fields = ['Keys', 'NewImage', 'OldImage'];
+      fields.forEach(field => {
+        if (item.dynamodb[field]) {
+          console.log('original item', item.dynamodb[field]);
+          item.dynamodb[field] = unmarshalItem(item.dynamodb[field]);
+          console.log('new item', item.dynamodb[field]);
+        }
+      });
+    }
     return item;
   }
 
