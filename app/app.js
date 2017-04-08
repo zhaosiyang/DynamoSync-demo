@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+import {DynamoSync} from './services/dynamodb-socket-service';
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+DynamoSync.configApp(app);
 app.use('/', index);
 app.use('/users', users);
 

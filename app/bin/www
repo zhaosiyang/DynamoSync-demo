@@ -20,7 +20,6 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-DynamoSync.configApp(app);
 var server = http.createServer(app);
 DynamoSync.configIO(server, ['arn:aws:dynamodb:us-west-2:113420481216:table/MusicLibraryTest']);
 
