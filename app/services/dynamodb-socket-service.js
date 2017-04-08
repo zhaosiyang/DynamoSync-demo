@@ -13,6 +13,10 @@ export class DynamoSync {
     });
   }
 
+  static configApp(app) {
+    app.use('/__DYNAMO_SYNC__', this.middleware);
+  }
+
   static _printParsingArnResult(tableArns) {
     console.info('ARN parsing result: ');
     for (let arn of tableArns) {
