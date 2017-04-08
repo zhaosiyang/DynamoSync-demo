@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-import {DynamoSync} from './services/dynamodb-socket-service';
+import {DynamoSync} from 'dynamosync-server';
 
 var app = express();
 

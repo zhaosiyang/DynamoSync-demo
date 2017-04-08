@@ -11,6 +11,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "dynamodb-marshaler": "^2.0.0",
+    "dynamosync-server": "^1.0.8",
     "ejs": "~2.5.2",
     "express": "~4.14.0",
     "morgan": "~1.7.0",
