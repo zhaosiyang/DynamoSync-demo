@@ -21,7 +21,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-DynamoSync.configIO(server, ['arn:aws:dynamodb:us-west-2:113420481216:table/Chat/stream/2017-04-10T21:52:08.880', 'arn:aws:dynamodb:us-west-2:113420481216:table/ShoppingList/stream/2017-04-10T21:55:28.046']);
+DynamoSync.configIO(server, ['arn:aws:dynamodb:us-west-2:113420481216:table/Chat', 'arn:aws:dynamodb:us-west-2:113420481216:table/ShoppingList']);
 
 /**
  * Listen on provided port, on all network interfaces.
