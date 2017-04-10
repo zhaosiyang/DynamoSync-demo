@@ -3,10 +3,19 @@
 </h1>
 
 
-{{items.length}}
+<h1>Shopping list</h1>
+
 <ol>
-  <li *ngFor="let item of items">
-    {{item.SongTitle}} | {{item.year}}
+  <li *ngFor="let item of shoppingItems">
+    {{item.CreatedAt}} | {{item.Finished}} | {{item.ShopItem}}
   </li>
 </ol>
 
+<hr>
+
+<h1>Chats</h1>
+<ol>
+  <li *ngFor="let chat of chats">
+    {{chat.Contents}} | {{item.Name}} | {{item.CreatedAt}}
+  </li>
+</ol>

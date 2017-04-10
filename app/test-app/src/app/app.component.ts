@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NgDynamoSync, EventName} from 'ng-dynamosync';
 import {Subscription} from 'rxjs';
 
@@ -8,16 +8,20 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private items = [6,7,8];
+  private shoppingItems = [];
+  private chats = [];
   private serverDomain = 'http://54.213.212.103:3000';
   private title = 'hello';
-  private sub: Subscription;
+  private sub1: Subscription;
+  private sub2: Subscription;
 
   ngOnInit() {
-    this.sub = new NgDynamoSync('MusicLibraryTest', this.serverDomain).bindToListModel(this.items);
+    this.sub1 = new NgDynamoSync('ShoppingList', this.serverDomain).bindToListModel(this.shoppingItems);
+    this.sub1 = new NgDynamoSync('Chat', this.serverDomain).bindToListModel(this.chats);
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.sub1.unsubscribe();
+    this.sub2.unsubscribe();
   }
 }
