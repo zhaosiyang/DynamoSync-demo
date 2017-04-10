@@ -17,7 +17,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.sub1 = new NgDynamoSync('ShoppingList', this.serverDomain).bindToListModel(this.shoppingItems);
-    this.sub1 = new NgDynamoSync('Chat', this.serverDomain).bindToListModel(this.chats);
+    this.sub2 = new NgDynamoSync('Chat', this.serverDomain).onlyAllowEventNames(EventName.INSERT).bindToListModel(this.chats);
   }
 
   ngOnDestroy() {
