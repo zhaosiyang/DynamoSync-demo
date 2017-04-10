@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var shoppingItems = require('./routes/shoppingItems');
+var chats = require('./routes/chats');
+
 import {DynamoSync} from 'dynamosync-server';
 
 var app = express();
@@ -32,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 DynamoSync.configApp(app);
 app.use('/', index);
 app.use('/users', users);
+app.use('/shoppingItems', shoppingItems);
+app.use('/chats', chats);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
