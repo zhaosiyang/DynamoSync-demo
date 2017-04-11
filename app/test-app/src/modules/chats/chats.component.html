@@ -1,2 +1,19 @@
 <h1>{{title}}</h1>
 
+<ol>
+  <li *ngFor="let chat of chats">
+    {{chat.Contents}}
+  </li>
+</ol>
+
+<form (submit)="submitChat()">
+  <label>
+    name:
+    <input type="text" [formControl]="nameFormControl">
+  </label>
+  <label>
+    contents:
+    <input type="text" [formControl]="contentsFormControl">
+  </label>
+  <input type="submit">
+</form>
