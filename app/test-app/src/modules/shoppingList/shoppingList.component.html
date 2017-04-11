@@ -1,18 +1,28 @@
-<h1>{{title}}</h1>
+<div class="jumbotron text-center">
+  <h2>{{title}}</h2>
+</div>
 
-<ul>
-  <li *ngFor="let item of shoppingItems">
-    <!--<span class="badge">{{hero.id}}</span> {{hero.name}}-->
-    name: {{item.ShopItem}}; finished: {{item.Finished}}
-    <br>
-    <button (click)="deleteItem(item.id)">delete</button>
-    <button (click)="finishItem(item.id)">finish</button>
+<form (submit)="postNewItem()">
+  <div class="input-group">
+    <span class="input-group-addon">New</span>
+    <input type="text" class="form-control" [formControl]="newItemFormControl" placeholder="item">
+    <span class="input-group-btn">
+      <button class="btn btn-info" type="submit">Create</button>
+    </span>
+  </div>
+</form>
+
+<ul class="list-group" style="margin-top: 1.5em">
+  <li class="list-group-item list-group-item-warning" *ngFor="let item of shoppingItems">
+    <div class="input-group">
+      {{item.ShopItem}}; finished: {{item.Finished}}
+      <button (click)="deleteItem(item.id)" class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+      <button (click)="finishItem(item.id)" class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-ok"></span>
+      </button>
+    </div>
   </li>
-
-  <form (submit)="postNewItem()">
-    Create new item: <input type="text" [formControl]="newItemFormControl">
-    <input type="submit">
-  </form>
-
 
 </ul>

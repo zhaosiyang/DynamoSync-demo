@@ -8,7 +8,7 @@
 .left {
   width: 50%;
   display: inline-block;
-  background-color: red;
+  /*background-color: red;*/
   box-sizing: border-box;
   padding: 2rem;
 }
@@ -16,7 +16,7 @@
 .right {
   width: 50%;
   display: inline-block;
-  background-color: #cad6b3;
+  /*background-color: #cad6b3;*/
   box-sizing: border-box;
   padding: 2rem;
 }
