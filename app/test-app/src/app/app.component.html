@@ -1,21 +1,33 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+  <!--<h1>-->
+    <!--{{title}}-->
+  <!--</h1>-->
 
 
-<h1>Shopping list</h1>
+  <!--<h1>Shopping list</h1>-->
 
-<ol>
-  <li *ngFor="let item of shoppingItems">
-    {{item.CreatedAt}} | {{item.Finished}} | {{item.ShopItem}}
-  </li>
-</ol>
+  <!--<ol>-->
+    <!--<li *ngFor="let item of shoppingItems">-->
+      <!--{{item.CreatedAt}} | {{item.Finished}} | {{item.ShopItem}}-->
+    <!--</li>-->
+  <!--</ol>-->
 
-<hr>
+  <!--<hr>-->
 
-<h1>Chats</h1>
-<ol>
-  <li *ngFor="let chat of chats">
-    {{chat.Contents}} | {{chat.Name}} | {{chat.CreatedAt}}
-  </li>
-</ol>
+  <!--<h1>Chats</h1>-->
+  <!--<ol>-->
+    <!--<li *ngFor="let chat of chats">-->
+      <!--{{chat.Contents}} | {{chat.Name}} | {{chat.CreatedAt}}-->
+    <!--</li>-->
+  <!--</ol>-->
+
+
+  <div class="left">
+    <shopping-list></shopping-list>
+  </div>
+
+  <div class="right">
+    <chats></chats>
+  </div>
+
+</div>

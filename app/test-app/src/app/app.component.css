@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.left {
+  width: 50%;
+  display: inline-block;
+  background-color: red;
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+.right {
+  width: 50%;
+  display: inline-block;
+  background-color: blue;
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
