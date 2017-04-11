@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Hero} from './hero';
 
 const HEROES: Hero[] = [
@@ -23,4 +23,8 @@ const HEROES: Hero[] = [
 export class ShoppingListComponent {
   title = 'Shopping List';
   heroes = HEROES;
+
+  @Input()
+  shoppingItems: any;
+
 }

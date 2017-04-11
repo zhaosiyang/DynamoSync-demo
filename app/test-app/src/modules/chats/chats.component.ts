@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'chats',
@@ -8,4 +8,7 @@ import {Component} from '@angular/core';
 
 export class ChatsComponent {
   title = 'Chats';
+
+  @Input()
+  chats: any;
 }
