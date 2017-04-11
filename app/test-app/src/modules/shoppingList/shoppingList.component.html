@@ -3,7 +3,7 @@
 <ul>
   <li *ngFor="let item of shoppingItems">
     <!--<span class="badge">{{hero.id}}</span> {{hero.name}}-->
-    name: {{item.ShopItem}};  finished: {{item.Finished}}
+    name: {{item.ShopItem}}; finished: {{item.Finished}}
     <br>
     <button (click)="deleteItem(item.id)">delete</button>
     <button (click)="finishItem(item.id)">finish</button>

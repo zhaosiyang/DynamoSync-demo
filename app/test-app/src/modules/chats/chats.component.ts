@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {Http} from '@angular/http';
-import {SERVER_URL} from '../../common/config';
-import {FormControl} from '@angular/forms';
+import {Component, Input} from "@angular/core";
+import {Http} from "@angular/http";
+import {SERVER_URL} from "../../common/config";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'chats',

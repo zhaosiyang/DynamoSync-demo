@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ChatsComponent} from './chats.component';
-import {CommonModule} from '@angular/common';
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ChatsComponent} from "./chats.component";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   imports: [

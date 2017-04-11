@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {NgDynamoSync, EventName} from 'ng-dynamosync';
-import {Subscription} from 'rxjs';
+import {Component} from "@angular/core";
+import {NgDynamoSync, EventName} from "ng-dynamosync";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
