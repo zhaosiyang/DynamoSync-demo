@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var shoppingItems = require('./routes/shoppingItems');
 var chats = require('./routes/chats');
+var cors = require('cors');
 
 import {DynamoSync} from 'dynamosync-server';
 
@@ -17,6 +18,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(cors());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

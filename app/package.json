@@ -10,6 +10,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.3",
     "debug": "~2.2.0",
     "dynamodb-marshaler": "^2.0.0",
     "dynamosync-server": "^1.0.8",
