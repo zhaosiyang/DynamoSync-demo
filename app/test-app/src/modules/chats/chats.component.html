@@ -1,19 +1,38 @@
-<h1>{{title}}</h1>
-
-<ol>
-  <li *ngFor="let chat of chats">
-    {{chat.Contents}}
-  </li>
-</ol>
+<div class="chat_window">
+  <div class="top_menu">
+    <div class="buttons">
+      <div class="button close"></div>
+      <div class="button minimize"></div>
+      <div class="button maximize"></div>
+    </div>
+    <div class="title">Chat</div>
+  </div>
+  <ul class="messages">
+    <li class="message left appeared" *ngFor="let chat of chats">
+      <div class="avatar"></div>
+      <div class="text_wrapper">
+        <div class="text">{{chat.Contents}}</div>
+      </div>
+    </li>
+  </ul>
+</div>
 
 <form (submit)="submitChat()">
-  <label>
-    name:
-    <input type="text" [formControl]="nameFormControl">
-  </label>
-  <label>
-    contents:
-    <input type="text" [formControl]="contentsFormControl">
-  </label>
-  <input type="submit">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="input-group">
+        <span class="input-group-addon">name</span>
+        <input type="text" class="form-control" placeholder="Username" [formControl]="nameFormControl">
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Type your message here..."
+               [formControl]="contentsFormControl">
+        <span class="input-group-btn">
+             <button class="btn btn-warning" type="submit">Send</button>
+          </span>
+      </div>
+    </div>
+  </div>
 </form>
