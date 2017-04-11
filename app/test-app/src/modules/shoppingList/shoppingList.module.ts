@@ -1,12 +1,13 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
-import {ShoppingListComponent} from './shoppingLIst.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ShoppingListComponent} from './shoppingList.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ShoppingListComponent
