@@ -23,14 +23,14 @@ export class ShoppingListComponent {
   }
 
   postNewItem() {
+    const contents = this.newItemFormControl.value;
+    this.newItemFormControl.setValue('');
 
-    if (!this.newItemFormControl.value) {
+    if (!contents) {
       return alert('Please enter contents!');
     }
 
-    this.newItemFormControl.setValue('');
-
-    this.http.post(SERVER_URL + '/shoppingItems', {contents: this.newItemFormControl.value}).toPromise()
+    this.http.post(SERVER_URL + '/shoppingItems', {contents}).toPromise()
       .then(() => {
       })
       .catch(err => {
