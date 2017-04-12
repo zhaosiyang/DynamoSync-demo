@@ -6,6 +6,7 @@ var dynamodb = new AWS.DynamoDB({region: 'us-west-2'});
 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
+  console.log('Got post chats, body is: ', req.body);
   var params = {
     Item: {
       id: {
