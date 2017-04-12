@@ -49,6 +49,13 @@ export class ChatsComponent {
     const contents = this.contentsFormControl.value;
     this.contentsFormControl.setValue('');
 
+    if (!name) {
+      return alert('Please enter your name!');
+    }
+    if (!contents) {
+      return alert('Please enter your chat contents');
+    }
+
     this.http.post(SERVER_URL + '/chats', {name, contents})
       .subscribe(
         response => {

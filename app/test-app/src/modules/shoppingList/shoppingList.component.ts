@@ -23,13 +23,19 @@ export class ShoppingListComponent {
   }
 
   postNewItem() {
+
+    if (!this.newItemFormControl.value) {
+      return alert('Please enter contents!');
+    }
+
+    this.newItemFormControl.setValue('');
+
     this.http.post(SERVER_URL + '/shoppingItems', {contents: this.newItemFormControl.value}).toPromise()
       .then(() => {
       })
       .catch(err => {
         console.log(err)
       });
-    this.newItemFormControl.setValue('');
   }
 
   deleteItem(id: string) {
