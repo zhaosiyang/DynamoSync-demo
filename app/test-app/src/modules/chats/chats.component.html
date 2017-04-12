@@ -9,7 +9,7 @@
   </div>
   <ul class="messages" #scrollMe>
     <li class="message left appeared" *ngFor="let chat of chats">
-      <div class="avatar"></div>
+      <div class="avatar" style="text-align: center; font-size: 4rem">{{chat ? chat.Name[0] : '?'}}</div>
       <div class="text_wrapper">
         <div class="text">{{chat.Contents}}</div>
       </div>
