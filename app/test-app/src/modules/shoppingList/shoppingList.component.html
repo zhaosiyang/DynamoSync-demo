@@ -19,11 +19,11 @@
     <span [ngClass]="{finished: item.Finished}">
       {{item.ShopItem}}
     </span>
-    <a (click)="finishItem(item.id)" type="button">
-      <span class="glyphicon glyphicon-ok"></span>
-    </a>
     <a (click)="deleteItem(item.id)" type="button">
-      <span class="glyphicon glyphicon-trash" style="margin-right: 1rem"></span>
+      <span class="glyphicon glyphicon-trash"></span>
+    </a>
+    <a (click)="finishItem(item.id)" type="button" *ngIf="!item.Finished" style="margin-right: 1rem">
+      <span class="glyphicon glyphicon-ok"></span>
     </a>
   </li>
 
