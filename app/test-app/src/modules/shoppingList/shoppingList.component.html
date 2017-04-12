@@ -7,13 +7,15 @@
     <span class="input-group-addon">New</span>
     <input type="text" class="form-control" [formControl]="newItemFormControl" placeholder="item">
     <span class="input-group-btn">
-      <button class="btn btn-info" type="submit">Create</button>
+      <button class="btn btn-primary" type="submit">Create</button>
     </span>
   </div>
 </form>
 
 <ul class="list-group" style="margin-top: 1.5em">
-  <li class="list-group-item" [ngClass]="{'list-group-item-success': item.Finished, 'list-group-item-warning': !item.Finished}" *ngFor="let item of shoppingItems">
+  <li class="list-group-item"
+      [ngClass]="{'list-group-item-success': item.Finished, 'list-group-item-warning': !item.Finished}"
+      *ngFor="let item of shoppingItems">
     <span [ngClass]="{finished: item.Finished}">
       {{item.ShopItem}}
     </span>
