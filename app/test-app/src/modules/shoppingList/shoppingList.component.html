@@ -4,10 +4,10 @@
 
 <form (submit)="postNewItem()">
   <div class="input-group">
-    <span class="input-group-addon">New</span>
-    <input type="text" class="form-control" [formControl]="newItemFormControl" placeholder="item">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
+    <input type="text" class="form-control" [formControl]="newItemFormControl" placeholder="Enter new item here...">
     <span class="input-group-btn">
-      <button class="btn btn-primary" type="submit">Create</button>
+      <button class="btn btn-primary" type="submit">Add</button>
     </span>
   </div>
 </form>
