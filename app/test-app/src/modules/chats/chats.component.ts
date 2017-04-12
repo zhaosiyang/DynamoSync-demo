@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewChild, ElementRef} from "@angular/core";
 import {Http} from "@angular/http";
 import {SERVER_URL} from "../../common/config";
 import {FormControl} from "@angular/forms";
@@ -10,6 +10,26 @@ import {FormControl} from "@angular/forms";
 })
 
 export class ChatsComponent {
+
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+
+  ngOnInit() {
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
+  }
+
+
+
+
   title = 'Chats';
 
   @Input()
