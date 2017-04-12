@@ -1,0 +1,13 @@
+a:hover {
+  cursor: pointer;
+}
+
+a {
+  text-align: right;
+  display: inline-block;
+  float: right;
+}
+
+.finished {
+  text-decoration: line-through;
+}

@@ -13,16 +13,16 @@
 </form>
 
 <ul class="list-group" style="margin-top: 1.5em">
-  <li class="list-group-item list-group-item-warning" *ngFor="let item of shoppingItems">
-    <div class="input-group">
-      {{item.ShopItem}}; finished: {{item.Finished}}
-      <button (click)="deleteItem(item.id)" class="btn btn-default" type="button">
-        <span class="glyphicon glyphicon-trash"></span>
-      </button>
-      <button (click)="finishItem(item.id)" class="btn btn-default" type="button">
-        <span class="glyphicon glyphicon-ok"></span>
-      </button>
-    </div>
+  <li class="list-group-item" [ngClass]="{'list-group-item-success': item.Finished, 'list-group-item-warning': !item.Finished}" *ngFor="let item of shoppingItems">
+    <span [ngClass]="{finished: item.Finished}">
+      {{item.ShopItem}}
+    </span>
+    <a (click)="finishItem(item.id)" type="button">
+      <span class="glyphicon glyphicon-ok" style="color: blue"></span>
+    </a>
+    <a (click)="deleteItem(item.id)" type="button">
+      <span class="glyphicon glyphicon-trash" style="color: red; margin-right: 1rem"></span>
+    </a>
   </li>
 
 </ul>
