@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "AWS_PROFILE=easiiapp babel-node ./bin/www & (cd ./test-app && ng serve)"
+    "start": "AWS_PROFILE=easiiapp babel-node ./bin/www & (cd ./test-app && ng build && http-server .)"
   },
   "dependencies": {
     "aws-sdk": "^2.39.0",
