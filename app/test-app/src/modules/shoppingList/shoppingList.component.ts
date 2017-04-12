@@ -28,7 +28,8 @@ export class ShoppingListComponent {
       })
       .catch(err => {
         console.log(err)
-      })
+      });
+    this.newItemFormControl.setValue('');
   }
 
   deleteItem(id: string) {

@@ -9,7 +9,7 @@
   </div>
   <ul class="messages" #scrollMe>
     <li class="message left appeared" *ngFor="let chat of chats">
-      <div class="avatar" style="text-align: center; font-size: 4rem">{{chat ? chat.Name[0] : '?'}}</div>
+      <div class="avatar" style="text-align: center; font-size: 4rem" [ngStyle]="{'background-color': '#'+nameToRGB(chat.Name)}">{{chat ? chat.Name[0] : '?'}}</div>
       <div class="text_wrapper">
         <div class="text">{{chat.Contents}}</div>
       </div>
@@ -21,8 +21,8 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="input-group">
-        <span class="input-group-addon">name</span>
-        <input type="text" class="form-control" placeholder="Username" [formControl]="nameFormControl">
+        <span class="input-group-addon">@</span>
+        <input type="text" class="form-control" placeholder="name" [formControl]="nameFormControl">
       </div>
     </div>
     <div class="col-sm-9">
