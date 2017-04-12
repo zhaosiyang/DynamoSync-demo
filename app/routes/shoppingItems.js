@@ -5,6 +5,7 @@ var dynamodb = new AWS.DynamoDB({region: 'us-west-2'});
 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
+  console.log('Got post shoppingItem, body is: ', req.body);
   var params = {
     Item: {
       id: {
